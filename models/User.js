@@ -8,13 +8,6 @@ const UserSchema = new mongoose.Schema({
     first_name: { type: String, required: true },
     last_name: { type: String }, //, required: true
     // image_upload:{ type: Schema.Types.ObjectId, ref: 'Upload' }, 
-    phone_number: String,
-    address: String,
-    address2: String,
-    city: String,
-    // state_province: { type: Number, ref: 'StateProvince' },
-    state_province_name: String, // custom state province
-    postal_code: String,
     // country: { type: Number, ref: 'Country' },
     // rap: { type: Schema.Types.ObjectId, ref: 'Rap' },
     status: {type: String, enum: ['Inactive', 'Active'], default: "Active"},
