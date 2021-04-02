@@ -5,6 +5,7 @@ const ProfileSchema = new mongoose.Schema({
     level: [{type: String, enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default: 1}],
     overall_score: { type: Number, required: true, default: 0 },
     username: String,
+    bio: String,
     genre_list: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Genre' }],
     phone_number: String,
     address: String,
@@ -15,6 +16,13 @@ const ProfileSchema = new mongoose.Schema({
     postal_code: String,
     created_on: { type: Date, default: Date.now },
     modified_on: Date,
+    social: {
+      youtube: {type: String},
+      twitter: {type: String},
+      facebook: {type: String},
+      linkedin: {type: String},
+      instagram: {type: String},
+    },
   });
   
   module.exports = Profile = mongoose.model('profile', ProfileSchema);
