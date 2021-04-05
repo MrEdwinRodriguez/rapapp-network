@@ -75,6 +75,34 @@ router.post('/', auth, async (req, res) => {
             console.error(error.message);
             res.status(500).send('Server Error');
         }
+});
+
+//@route api/profile
+//get all profiles
+//private
+router.get('/', auth, async (req, res) => {
+    try {
+        const profiles = await Profile.find().populate('user', ['name', 'first_name', 'last_name', 'status']);
+        res.json(profiles);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error')
+    }
+})
+
+//@route api/profile/user/:user_id
+//get prpfile by user_id
+//private
+router.get('/user/:user_id', auth, async (req, res) => {
+    try {
+        const profile = await Profile.findOne({ user: req.params.user_id}).populate('user', ['name', 'first_name', 'last_name', 'status']);
+        if (!profile) return res.status(400).json({ msg: "Profile Not Found"});
+        res.json(profile);
+    } catch (error) {
+        console.error(error.message);
+        if (error.kind == 'ObjectId') return res.status(400).json({ msg: "Profile Not Found"});
+        res.status(500).send('Server Error')
+    }
 })
 
 module.exports = router;
