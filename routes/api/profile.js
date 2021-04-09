@@ -103,6 +103,53 @@ router.get('/user/:user_id', auth, async (req, res) => {
         if (error.kind == 'ObjectId') return res.status(400).json({ msg: "Profile Not Found"});
         res.status(500).send('Server Error')
     }
+});
+
+//@route delete api/profile
+//hard delete profile user and recordings
+//private
+router.get('/', auth, async (req, res) => {
+    try {
+        await Profile.findOneAndRemove({ user: req.user.id});
+        await User.findOneAndRemove({ _id: req.user.id});
+
+        // ***** TO DO delete recordings associated with user/profile
+        res.json({msg: "Delete profile and user successful"});
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error')
+    }
+})
+
+//@route put api/profile/deactivate
+//Change profile and user to inactive
+//private
+router.put('/', auth, async (req, res) => {
+    try {
+        const profile = await Profile.findOne({user: req.user.id});
+        if (!profile) return res.status(400).json({msg: "There is not profile for this user"});
+        profile.modified_on = new Date();
+        profile.status = "Inactive";
+        await Profile.findOneAndUpdate(
+            {user: req.user.id},
+            { $set: profile },
+            { new: true }
+        );
+        const user = await User.findOne({_id: req.user.id});
+        if (!user) return res.status(400).json({msg: "User not found"});
+        user.modified_on = new Date();
+        user.status = "Inactive";
+        await User.findOneAndUpdate(
+            {user: req.user.id},
+            { $set: user },
+            { new: true }
+        );
+        // ***** TO DO hide recordings associated with user/profile
+        res.json({msg: "Deactivate profile and user successful"});
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error')
+    }
 })
 
 module.exports = router;

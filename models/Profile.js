@@ -7,6 +7,7 @@ const ProfileSchema = new mongoose.Schema({
     username: String,
     bio: String,
     genre_list: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Genre' }],
+    status: {type: String, enum: ['Inactive', 'Active'], default: "Active"},
     phone_number: String,
     address: String,
     address2: String,
