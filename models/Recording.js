@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const commentSchema = new Schema({
+	user: { type: Schema.Types.ObjectId, ref: 'users'},
+	text: {type: String, required: true},
+	name: {type: String },
+	profileImage: { type: String }, 
+}, {
+    timestamps: true
+});
 
 const RecordingScheme = new Schema ({
 	user: { type: Schema.Types.ObjectId, ref: 'users'},
@@ -9,18 +17,10 @@ const RecordingScheme = new Schema ({
 	title: {type: String },
 	profileImage: { type: String },
 	likes: [{ user: { type: Schema.Types.ObjectId, ref: 'users'} }],
-	comments: [
-		{ 
-			user: { type: Schema.Types.ObjectId, ref: 'users'},
-			text: {type: String, required: true},
-			name: {type: String },
-			profileImage: { type: String }, 
-			date: { type: Date, default: Date.now },
-			updated: { type: Date }
-		}
-		],
+	comments: [commentSchema],
 	date: { type: Date, default: Date.now },
-	updated: { type: Date }
+},{
+    timestamps: true
 })
 
-module.exports = Post = mongoose.model('post', RecordingScheme);
+module.exports = Recording = mongoose.model('Recording', RecordingScheme);
