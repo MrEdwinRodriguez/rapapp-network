@@ -18,7 +18,6 @@ const RecordingScheme = new Schema ({
 	profileImage: { type: String },
 	likes: [{ user: { type: Schema.Types.ObjectId, ref: 'users'} }],
 	comments: [commentSchema],
-	date: { type: Date, default: Date.now },
 },{
     timestamps: true
 })

@@ -16,8 +16,6 @@ const ProfileSchema = new mongoose.Schema({
     // state_province: { type: Number, ref: 'StateProvince' },
     state_province_name: String, // custom state province
     postal_code: String,
-    created_on: { type: Date, default: Date.now },
-    modified_on: Date,
     social: {
       youtube: {type: String},
       twitter: {type: String},
