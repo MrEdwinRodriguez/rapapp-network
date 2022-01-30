@@ -28,13 +28,6 @@ router.get('/myprofile', auth, async (req, res) => {
 //private
 
 router.post('/', auth, async (req, res) => {
-        try {
-            
-        } catch (error) {
-            console.error(error.message)
-            res.status(500).send('Server Error') 
-        }
-
         const { username, bio, phone_number, address, address2, city, state_province_name, postal_code, level, overall_score, youtube, facebook, twitter, linkedin, instagram } = req.body;
         
         const profileFields ={};
