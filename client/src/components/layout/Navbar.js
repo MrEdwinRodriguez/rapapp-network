@@ -12,7 +12,7 @@ export const Navbar = () => {
       );
     return (
         <nav className="navbar bg-dark">
-        <Fragment>guestLinks</Fragment>
+        <Fragment>{guestLinks}</Fragment>
       </nav>
     )
 }
